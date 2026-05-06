@@ -14,7 +14,7 @@ Como capa final del proyecto, se ha desarrollado una **interfaz interactiva en S
 *   **Análisis de Tipologías (Radar):** Desglose visual de los 8 grupos delictivos mediante gráficos radiales.
 *   **Glosario Integrado:** Consulta rápida de las tipologías legales incluidas en cada clúster.
 
-> **Acceso a la App:** `streamlit run app.py` *(Disponible en el repositorio)*
+> **Acceso a la App:** `streamlit run app.py` *(https://proycibercriminalidad.streamlit.app/)*
 
 ---
 

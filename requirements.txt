@@ -1,0 +1,29 @@
+# --- Manipulación y Análisis de Datos ---
+pandas
+numpy
+scipy
+
+# --- Visualización y Gráficos ---
+matplotlib
+seaborn
+plotly
+nbformat
+ipywidgets
+
+# --- Machine Learning y Modelado ---
+scikit-learn
+xgboost
+lightgbm
+catboost
+
+# --- Guardado y carga de modelos ---
+joblib
+
+# --- Utilidades de Sistema y Red ---
+requests
+
+# --- Streamlit (Para la aplicación)--- 
+streamlit
+# --- Añadidos necesarios para que el mapa funcione en la App ---
+geopandas
+streamlit-folium

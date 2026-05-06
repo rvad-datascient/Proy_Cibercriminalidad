@@ -1,0 +1,25 @@
+# --- Entornos Virtuales ---
+.venv/
+venv/
+env/
+
+# --- Temporales de Python y Notebooks ---
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.DS_Store
+Thumbs.db
+
+# --- Archivos de configuración de IDE ---
+.vscode/
+.idea/
+
+# --- DATOS Y MODELOS (MUY IMPORTANTE) ---
+# NO ignores estos archivos si quieres que tu App de Streamlit funcione online.
+# Solo los ignoramos si pesan más de 100MB (el tuyo pesa 88MB, así que puedes subirlos).
+
+# /01_Data/*.csv       <-- Mantén el '#' al principio para que SÍ se suban
+# /04_ml_project/*.joblib <-- Mantén el '#' al principio para que SÍ se suban
+
+# --- Streamlit ---
+.streamlit/

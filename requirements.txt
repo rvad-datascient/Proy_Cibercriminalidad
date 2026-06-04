@@ -7,6 +7,8 @@ scipy
 matplotlib
 seaborn
 plotly
+# nbformat e ipywidgets son necesarios si abres notebooks en entornos como Jupyter, 
+# pero no suelen ser estrictos para la App de Streamlit. Los dejo por si acaso.
 nbformat
 ipywidgets
 
@@ -15,15 +17,24 @@ scikit-learn
 xgboost
 lightgbm
 catboost
-
-# --- Guardado y carga de modelos ---
+# joblib es vital para cargar tus modelos guardados
 joblib
 
-# --- Utilidades de Sistema y Red ---
+# --- Utilidades de Sistema ---
 requests
 
-# --- Streamlit (Para la aplicación)--- 
+# --- Streamlit ---
 streamlit
-# --- Añadidos necesarios para que el mapa funcione en la App ---
+
+# --- Mapas y Geoespacial ---
+# IMPORTANTE: geopandas es una librería "pesada" que a veces da problemas 
+# en el despliegue si no se especifican sus dependencias.
 geopandas
+# Si tu mapa en Streamlit está hecho con Plotly (como vimos en tu código), 
+# quizás no necesites folium. Si usas folium, déjalo.
 streamlit-folium
+
+# --- AÑADIDO ESTRATÉGICO ---
+# A veces es necesario especificar una versión de 'pyarrow' o 'fsspec' 
+# para que pandas lea mejor los archivos CSV. 
+fsspec

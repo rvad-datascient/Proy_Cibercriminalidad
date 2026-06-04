@@ -1,9 +1,17 @@
+# --- ESTUDIO: ¿POR QUÉ IGNORAR ESTOS ARCHIVOS? ---
+# Ignoramos archivos generados automáticamente por el sistema operativo o el IDE.
+# Esto mantiene el repositorio limpio y evita conflictos entre diferentes ordenadores.
+
 # --- Entornos Virtuales ---
+# Nunca subas el entorno virtual (venv). Cada usuario debe crear el suyo
+# ejecutando 'pip install -r requirements.txt' en su propia máquina.
 .venv/
 venv/
 env/
 
 # --- Temporales de Python y Notebooks ---
+# __pycache__ almacena archivos compilados que Python recrea automáticamente.
+# .ipynb_checkpoints son copias de seguridad temporales de tus Notebooks.
 __pycache__/
 *.pyc
 .ipynb_checkpoints/
@@ -11,15 +19,24 @@ __pycache__/
 Thumbs.db
 
 # --- Archivos de configuración de IDE ---
+# .vscode y .idea contienen configuraciones personales de tu editor de código.
+# No son necesarias para que el código funcione en otros ordenadores.
 .vscode/
 .idea/
 
-# --- DATOS Y MODELOS (MUY IMPORTANTE) ---
-# NO ignores estos archivos si quieres que tu App de Streamlit funcione online.
-# Solo los ignoramos si pesan más de 100MB (el tuyo pesa 88MB, así que puedes subirlos).
-
-# /01_Data/*.csv       <-- Mantén el '#' al principio para que SÍ se suban
-# /04_ml_project/*.joblib <-- Mantén el '#' al principio para que SÍ se suban
+# --- Archivos de sistema y logs ---
+# Los archivos de registro (.log) suelen contener errores o datos de ejecución 
+# que no deben ser compartidos públicamente.
+*.log
+*.tmp
 
 # --- Streamlit ---
-.streamlit/
+# .streamlit/ suele contener el archivo 'secrets.toml'. 
+# IMPORTANTE: Si alguna vez pones contraseñas o tokens en secrets.toml, 
+# descomenta la línea de abajo para que GitHub no los haga públicos.
+# .streamlit/secrets.toml
+
+# --- ARCHIVOS QUE SÍ DEBEN SUBIRSE ---
+# Nota: NO incluyo aquí ninguna regla que ignore '01_Data/' ni '04_Models/'.
+# Al no ignorarlos, Git los rastreará y subirá a GitHub, lo cual es necesario
+# para que tu aplicación funcione correctamente en la nube (Streamlit Cloud).

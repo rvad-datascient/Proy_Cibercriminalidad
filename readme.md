@@ -1,86 +1,159 @@
+# **Predicción y Modelado de Denuncias por Cibercriminalidad en España (2022–2025)**
 
-# 🛡️ Cibercrimen en España: Predicción y Modelado (2022–2025)
+## **Objetivo del Proyecto**
 
-## 💡 Objetivo del Proyecto
-Desarrollar un ecosistema predictivo capaz de estimar la evolución de la cibercriminalidad en España a nivel provincial. Utilizando datos oficiales del **Sistema Estadístico de Criminalidad (SEC)** y variables demográficas del **INE**, el proyecto transforma registros históricos en inteligencia accionable para anticipar tendencias delictivas con alta precisión.
-
----
-
-## 🚀 App Interactiva (Dashboard de Control)
-Como capa final del proyecto, se ha desarrollado una **interfaz interactiva en Streamlit** que permite visualizar las predicciones de 2025 de forma dinámica.
-
-*   **Mapa de Calor Provincial:** Visualización de la tasa de riesgo por cada 1.000 habitantes.
-*   **Semáforo de Riesgo:** Indicador inteligente que clasifica la peligrosidad (Baja/Media/Alta) según la provincia seleccionada.
-*   **Análisis de Tipologías (Radar):** Desglose visual de los 8 grupos delictivos mediante gráficos radiales.
-*   **Glosario Integrado:** Consulta rápida de las tipologías legales incluidas en cada clúster.
-
-> **Acceso a la App:** `streamlit run app.py` *(https://proycibercriminalidad.streamlit.app/)*
+Desarrollar un ecosistema predictivo capaz de estimar la **evolución** de las **denuncias por cibercriminalidad en España** a nivel provincial. Utilizando datos oficiales del **Sistema Estadístico de Criminalidad (SEC)** y variables demográficas del **INE**, el proyecto transforma registros históricos en inteligencia accionable para anticipar tendencias delictivas con alta precisión.
 
 ---
 
-## 📊 Validación Real (Hito 2025)
-El modelo ha sido validado contrastando las predicciones generadas con los datos reales publicados por el Ministerio del Interior para el cierre de 2025, demostrando una robustez excepcional:
+## **App Interactiva (Dashboard de Control)**
 
-*   **WAPE (Error Ponderado):** 5.72%
-*   **Desviación Real vs. Predicción:** < 3% en volumen total.
+Como capa final del proyecto, se ha desarrollado una **interfaz interactiva en Streamlit** que organiza el análisis en cuatro bloques:
+
+- **Introducción y validación:** Contexto del SEC, definición de métricas y validación del modelo 2025 frente al Balance de Criminalidad oficial.
+- **Evolución Nacional (2022–2025):** Series temporales del total de denuncias por cibercrimen, fraude informático y otros ciberdelitos, comparando datos reales (2022–2024) con la predicción para 2025.
+- **Fraude Informático (Análisis 2025):** Mapas de peso del fraude, ranking de provincias por tasa, variación interanual (VAR%) y evolución provincial con predicción 2025.
+- **Otros Ciberdelitos (Análisis 2025):** Mapas de tasa total de “Otros ciberdelitos”, mapa de crecimiento (Δ Tasa 2025 vs 2024), rankings de incidencia y crecimiento, evolución provincial y desglose de tipologías por provincia.
+
+> **Ejecución:**  
+> `streamlit run 05_App/app_cibercrimen.py`
+
+---
+
+# **Validación Real (Hito 2025)**
+
+El modelo se ha validado frente a los datos oficiales del Ministerio del Interior (Balance de Criminalidad 2025). La desviación total es inferior al **3 %**, con un ajuste superior al **96 %** en ambas tipologías principales.
+
+## **Validación del modelo frente al Balance de Criminalidad 2025 (SEC)**
 
 | Indicador | Dato Oficial SEC | Predicción Modelo | Desviación |
-| :--- | :--- | :--- | :--- |
-| **Total Cibercrimen** | 489.248 | 500.117 | **+2.2%** |
-| **Fraude Informático** | 430.493 | 446.555 | **+3.7%** |
-| **Otros Ciberdelitos** | 58.755 | 53.562 | **-8.8%** |
+| --- | --- | --- | --- |
+| Total Cibercrimen | 489.248 | 503.812 | +2,97 % |
+| Fraude Informático | 430.493 | 447.118 | +3,86 % |
+| Otros Ciberdelitos | 58.755 | 56.694 | -3,50 % |
+
+## **Rendimiento de los modelos**
+
+| Dataset | Modelo | MAE | WAPE (%) | R² |
+| --- | --- | --- | --- | --- |
+| FRAUDE | RandomForest | 0.4663 | 5.76 % | 0.8552 |
+| OTROS | XGBoost | 0.0132 | 8.16 % | 0.9778 |
 
 ---
 
-## 🧠 Estructura de Trabajo
-El proyecto se articula en cuatro fases modulares en formato Notebook:
+## **Resumen de Resultados**
 
-1.  **`01_Introducción`**: Contexto legal y fuentes de datos (SEC e INE).
-2.  **`02_EDA_Limpieza`**: Gestión de nulos, duplicados y normalización de nombres provinciales.
-3.  **`03_EDA_Visual`**: Framework de métricas (Tasa x 1000, Peso del Delito y VAR%). Identificación de outliers.
-4.  **`04_ML_Modelado`**: Ingeniería de variables (Lags, Medias Móviles), entrenamiento (Random Forest/XGBoost) y generación del CSV final de predicciones.
+- **Precisión Robusta:** R² de 0.97 en *Otros Ciberdelitos*.  
+- **Ajuste Global:** Desviación agregada del **2,97 %**.  
+- **Fidelidad:** La predicción 2025 mantiene la estructura delictiva real reportada por el Ministerio del Interior.
 
 ---
 
-## 🧩 Agrupación Estratégica (Clustering)
-Para mitigar la granularidad excesiva y mejorar la potencia del modelo, se definieron **8 grupos estratégicos**:
+## **Nota técnica**
 
-| Grupo Penal | Delitos Incluidos (Resumen) |
-| :--- | :--- |
-| **Fraude Informático** | Estafas bancarias, tarjetas, criptoactivos e inversiones. |
-| **Interferencia** | Sabotaje informático y ataques a sistemas/datos. |
-| **Amenazas/Coacciones** | Extorsión, acoso digital y amenazas en red. |
-| **Delitos Sexuales** | Sexting, grooming y pornografía de menores. |
-| **Falsificación** | Usurpación de identidad y falsificación documental. |
-| **Contra el Honor** | Injurias, calumnias y hostigamiento (cyber-bullying). |
-| **Acceso Ilícito** | Revelación de secretos e interceptación de datos. |
-| **Propiedad Industrial** | Espionaje industrial y piratería intelectual. |
+Las predicciones corresponden exclusivamente al **ámbito nacional provincial**, excluyendo las infracciones cometidas **en el extranjero**, ya que el dataset original tampoco las incluye.
+
+La comparación debe realizarse únicamente con el bloque **“Cibercriminalidad (infracciones penales cometidas por medio ciber)”** del ámbito nacional.
 
 ---
 
-## ⚙️ Especificaciones Técnicas
-*   **Modelado Segmentado:** 
-    *   `Random Forest` para Fraude Informático (patrones estables).
-    *   `XGBoost` para Otros Delitos (captura mejor la volatilidad).
-*   **Feature Engineering:** Creación de rezagos temporales (Lags T-1, T-2) para captar la inercia delictiva.
-*   **Tratamiento de Datos:** `RobustScaler` para manejar la disparidad de volumen entre grandes metrópolis (Madrid/Barcelona) y zonas rurales.
+## **Estructura de Trabajo**
+
+### **01 · Análisis Exploratorio de Datos (EDA)**
+
+- Limpieza, normalización y validación técnica.  
+- Visualización avanzada: mapas, tendencias y distribución por tipologías.
+
+### **02 · Modelado Predictivo**
+
+- Entrenamiento de modelos RandomForest y XGBoost.  
+- Evaluación con MAE, WAPE y R².  
+- Predicción de denuncias 2025.
 
 ---
 
+## **Mapas Interactivos (Análisis Espacial)**
 
-## 👩‍💻 Sobre mí (y este proyecto)
+Debido a las limitaciones de GitHub, los mapas pueden visualizarse mediante:
 
-**👋 ¡¡Hola! Soy Raquel, Data Analyst – Business & Financial Analytics – Data Science**
+- **nbviewer:**  
+    https://nbviewer.jupyter.org/https://github.com/rvad-datascient/Proy_Cibercriminalidad.git/tree/main/02_Notebooks/
+  
+- **Archivos HTML locales:**  
+  Carpeta `02_Notebooks/mapas_interactivos/`
 
-Me encanta pillar un montón de datos desordenados y convertirlos en decisiones que sirvan para algo. Este dashboard es mi **Proyecto de Fin de Máster en Data Science & Machine Learning** y es mi forma de demostrar cómo la IA puede ayudarnos a entender (y predecir) algo tan complejo como el cibercrimen.
+---
 
-*   **El truco:** He usado datos oficiales del Ministerio del Interior para que lo que veas aquí sea lo más cercano posible a la realidad.
-*   **Hablamos en:** [LinkedIn](www.linkedin.com/in/raquelvadillo)
+## **Agrupación Estratégica (Clustering)**
+
+Basada en la clasificación oficial del Ministerio del Interior (SEC).
+
+| Grupo penal | Delitos incluidos |
+| --- | --- |
+| fraude_informatico | Estafas, estafas bancarias, tarjetas, inversores. |
+| interferencia_en_los_datos_y_en_el_sistema | Ataques a sistemas, sabotaje digital. |
+| amenazas_y_coacciones | Amenazas, extorsión, acoso. |
+| delitos_sexuales | Grooming, sextorsión, pornografía de menores. |
+| falsificacion_informatica | Usurpación de identidad, falsificación documental. |
+| contra_el_honor | Injurias, calumnias, perfiles falsos. |
+| acceso_e_interceptacion_ilicita | Intrusismo, acceso ilegal, revelación de secretos. |
+| contra_la_propiedad_industrial_intelectual | Piratería, espionaje industrial. |
 
 ---
 
-## ⚠️ ¡Un segundo! (Advertencia)
+## **Especificaciones Técnicas**
 
-Esto es un proyecto **educativo y técnico**. Aunque el modelo es potente y los datos son reales, las predicciones son estimaciones. El cibercrimen cambia por mil cosas (política, nuevas leyes, o que a un hacker le dé por algo nuevo mañana), así que usa esto para flipar con los datos, no para planificar una operación policial real. 🕵️‍♀️
+| Componente | Implementación |
+| --- | --- |
+| Modelado | RandomForest (Fraude) · XGBoost (Otros) |
+| Feature Engineering | Lags T-1/T-2, Media móvil, VAR_pct, Δ Tasa |
+| Preprocesamiento | RobustScaler, OneHotEncoder |
+| Validación Temporal | Train 2023 · Test 2024 |
+| Optimización | Optuna, GridSearchCV |
+| Explicabilidad | SHAP |
+| Despliegue | Pipelines `.joblib` |
 
 ---
+
+## **Estructura del Proyecto**
+
+```text
+Proy_Cibercriminalidad/
+├── 01_Data/
+│   ├── Process/
+│   └── Predictions/
+├── 02_Notebooks/
+│   ├── mapas_interactivos/
+│   ├── 01_EDA.ipynb
+│   └── 02_Feature_ML.ipynb
+├── 03_SRC/
+├── 04_Models/
+├── 05_App/
+│   └── app_cibercrimen.py
+├── 06_Test/
+├── requirements.txt
+└── README.md
+```
+---
+
+# **Instrucciones: Clonar y Ejecutar**
+- git clone https://github.com/rvad-datascient/Proy_Cibercriminalidad.git
+- cd Proy_Cibercriminalidad
+- pip install -r requirements.txt
+- streamlit run 05_App/app_cibercrimen.py
+
+---
+
+## **Sobre mí**
+
+**¡Hola! Soy Raquel, Data Analyst – Data Science**
+
+Me encanta convertir datos complejos en decisiones estratégicas. Este dashboard es mi **Proyecto de Fin de Máster en Data Science & Machine Learning** y refleja mi capacidad para integrar análisis estadístico, *Machine Learning* y desarrollo de aplicaciones.
+
+* **LinkedIn:** [Raquel Vadillo](https://www.google.com/search?q=https://www.linkedin.com/in/raquelvadillo)
+
+---
+
+## **Aviso Legal**
+
+Este es un proyecto educativo y técnico. Las predicciones son estimaciones estadísticas basadas en datos históricos. No deben utilizarse como base para la planificación de operaciones policiales o decisiones de seguridad crítica.

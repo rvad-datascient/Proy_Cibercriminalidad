@@ -16,7 +16,7 @@ Como capa final del proyecto, se ha desarrollado una **interfaz interactiva en S
 - **Otros Ciberdelitos (Análisis 2025):** Mapas de tasa total de “Otros ciberdelitos”, mapa de crecimiento (Δ Tasa 2025 vs 2024), rankings de incidencia y crecimiento, evolución provincial y desglose de tipologías por provincia.
 
 > **Ejecución:**  
-> `streamlit run 05_App/app_cibercrimen.py`
+> [`streamlit run 05_App/app_cibercrimen.py`](https://proycibercriminalidad.streamlit.app/)
 
 ---
 

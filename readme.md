@@ -1,6 +1,6 @@
 # **Predicción y Modelado de Denuncias por Cibercriminalidad en España (2022–2025)**
 
-## **Objetivo del Proyecto**
+**Objetivo del Proyecto**
 
 Desarrollar un ecosistema predictivo capaz de estimar la **evolución** de las **denuncias por cibercriminalidad en España** a nivel provincial. Utilizando datos oficiales del **Sistema Estadístico de Criminalidad (SEC)** y variables demográficas del **INE**, el proyecto transforma registros históricos en inteligencia accionable para anticipar tendencias delictivas con alta precisión.
 
@@ -39,65 +39,64 @@ El modelo se ha validado frente a los datos oficiales del Ministerio del Interio
 | FRAUDE | RandomForest | 0.4663 | 5.76 % | 0.8552 |
 | OTROS | XGBoost | 0.0132 | 8.16 % | 0.9778 |
 
----
+* **MAE (Mean Absolute Error)**: Error medio en miles de denuncias.
+* **WAPE (Weighted Average Percentage Error)**: Precisión relativa ponderada.
+* **R²**: Coeficiente de determinación (capacidad explicativa del modelo).
 
 ## **Resumen de Resultados**
 
-- **Precisión Robusta:** R² de 0.97 en *Otros Ciberdelitos*.  
-- **Ajuste Global:** Desviación agregada del **2,97 %**.  
-- **Fidelidad:** La predicción 2025 mantiene la estructura delictiva real reportada por el Ministerio del Interior.
+> * **Precisión Robusta:** El modelo alcanza un R² de 0.97 en *Otros Ciberdelitos*, garantizando una alta fiabilidad en las proyecciones.
+> * **Ajuste Global:** La desviación agregada de apenas un **2,97 %** valida el enfoque de entrenamiento basado en Random Forest y XGBoost.
+> * **Fidelidad:** La proyección 2025 confirma que el modelo no solo predice el volumen, sino que mantiene la estructura delictiva real reportada por el Ministerio del Interior.
+> *Nota: Este proceso de validación forma parte del pipeline automatizado definido en `03_SRC/evaluation_utils.py`, asegurando que la comparación contra datos oficiales sea replicable y auditable.*
+>
+>
 
 ---
 
 ## **Nota técnica**
 
-Las predicciones corresponden exclusivamente al **ámbito nacional provincial**, excluyendo las infracciones cometidas **en el extranjero**, ya que el dataset original tampoco las incluye.
+Las predicciones generadas por el modelo corresponden exclusivamente al **ámbito nacional provincial**; es decir, **no incluyen** las infracciones cometidas **en el extranjero**, ya que el dataset original utilizado para entrenar el modelo tampoco las incorpora.
 
-La comparación debe realizarse únicamente con el bloque **“Cibercriminalidad (infracciones penales cometidas por medio ciber)”** del ámbito nacional.
+Por este motivo, la comparación debe realizarse únicamente con el bloque **“Cibercriminalidad (infracciones penales cometidas por medio ciber)”** del ámbito nacional, excluyendo el apartado **“En el extranjero”** (pág. 507 del informe oficial).
+
+*Informe oficial:* [Balance de Criminalidad – Cuarto Trimestre 2025](https://estadisticasdecriminalidad.ses.mir.es/publico/portalestadistico/dam/jcr:7d3776cd-9ca4-4c02-8ca4-96b2571dbee4/Balance%20de%20Criminalidad%20Cuarto%20Trimestre%202025.pdf)
 
 ---
 
 ## **Estructura de Trabajo**
 
-### **01 · Análisis Exploratorio de Datos (EDA)**
+El proyecto se articula en dos fases modulares:
 
-- Limpieza, normalización y validación técnica.  
-- Visualización avanzada: mapas, tendencias y distribución por tipologías.
+**01_Análisis Exploratorio de Datos (EDA)**:
 
-### **02 · Modelado Predictivo**
+* Definición del problema, marco teórico y objetivos del modelo.
+* Ingesta de fuentes crudas, tratamiento de nulos, normalización de provincias y validación técnica.
+* Visualización avanzada: Mapas de calor, tendencias temporales y distribución por tipologías.
 
-- Entrenamiento de modelos RandomForest y XGBoost.  
-- Evaluación con MAE, WAPE y R².  
-- Predicción de denuncias 2025.
+**02_Modelado_Predictivo (Predictive Modeling)**:
 
----
-
-## **Mapas Interactivos (Análisis Espacial)**
-
-Debido a las limitaciones de GitHub, los mapas pueden visualizarse mediante:
-
-- **nbviewer:**  
-    https://nbviewer.jupyter.org/https://github.com/rvad-datascient/Proy_Cibercriminalidad.git/tree/main/02_Notebooks/
-  
-- **Archivos HTML locales:**  
-  Carpeta `02_Notebooks/mapas_interactivos/`
+* Entrenamiento de algoritmos y evaluación de métricas.
+* Proyecciones de denuncias por cibercriminalidad 2025.
 
 ---
 
 ## **Agrupación Estratégica (Clustering)**
 
-Basada en la clasificación oficial del Ministerio del Interior (SEC).
+Para mitigar la granularidad excesiva y mejorar la potencia del modelo, se inspeccionaron los hechos basados en los bloques definidos por el Ministerio del Interior.
 
-| Grupo penal | Delitos incluidos |
+> **Referencia Metodológica:** [Metodología de Cibercriminalidad (SEC)](https://estadisticasdecriminalidad.ses.mir.es/publico/portalestadistico/dam/jcr:d96d4063-98d8-4647-8c76-d46a331a4ba3/03_Metodolog%C3%ADa_Cibercriminalidad.pdf).
+
+| Grupo penal | Delitos incluidos según SEC |
 | --- | --- |
-| fraude_informatico | Estafas, estafas bancarias, tarjetas, inversores. |
-| interferencia_en_los_datos_y_en_el_sistema | Ataques a sistemas, sabotaje digital. |
-| amenazas_y_coacciones | Amenazas, extorsión, acoso. |
-| delitos_sexuales | Grooming, sextorsión, pornografía de menores. |
-| falsificacion_informatica | Usurpación de identidad, falsificación documental. |
-| contra_el_honor | Injurias, calumnias, perfiles falsos. |
-| acceso_e_interceptacion_ilicita | Intrusismo, acceso ilegal, revelación de secretos. |
-| contra_la_propiedad_industrial_intelectual | Piratería, espionaje industrial. |
+| **fraude_informatico** | Estafas, estafas bancarias, tarjetas, inversores. |
+| **interferencia_en_los_datos_y_en_el_sistema** | Ataques a sistemas, sabotaje digital, datos o programas. |
+| **amenazas_y_coacciones** | Amenazas, extorsión, coacciones, acoso. |
+| **delitos_sexuales** | Sexting, grooming, pornografía de menores, agresión/abuso sexual. |
+| **falsificacion_informatica** | Usurpación de identidad, falsificación de documentos/moneda/DNI. |
+| **contra_el_honor** | Injurias, calumnias, perfiles falsos, difusión ilícita de contenidos. |
+| **acceso_e_interceptacion_ilicita** | Acceso ilegal a sistemas, revelación de secretos, intrusismo. |
+| **contra_la_propiedad_industrial_intelectual** | Delitos contra propiedad industrial/intelectual, espionaje industrial. |
 
 ---
 
@@ -106,33 +105,32 @@ Basada en la clasificación oficial del Ministerio del Interior (SEC).
 | Componente | Implementación |
 | --- | --- |
 | Modelado | RandomForest (Fraude) · XGBoost (Otros) |
-| Feature Engineering | Lags T-1/T-2, Media móvil, VAR_pct, Δ Tasa |
-| Preprocesamiento | RobustScaler, OneHotEncoder |
-| Validación Temporal | Train 2023 · Test 2024 |
+| Feature Engineering | Lags T-1/T-2, Media móvil, VAR_pct |
+| Preprocesamiento | RobustScaler, OneHotEncoder, Pipelines sin leakage |
+| Validación Temporal | Train 2023, Test 2024, TimeSeriesSplit |
 | Optimización | Optuna, GridSearchCV |
-| Explicabilidad | SHAP |
-| Despliegue | Pipelines `.joblib` |
+| Explicabilidad | SHAP (Top variables por tipología) |
+| Despliegue | Pipelines finales guardados con joblib |
 
 ---
-
-## **Estructura del Proyecto**
 
 ```text
 Proy_Cibercriminalidad/
 ├── 01_Data/
-│   ├── Process/
-│   └── Predictions/
+│   ├── Process/            # Datos limpios y GeoJSON
+│   └── Predictions/        # Salidas del modelo (2025)
 ├── 02_Notebooks/
-│   ├── mapas_interactivos/
+│   ├── mapas_interactivos/ # Visualizaciones HTML
 │   ├── 01_EDA.ipynb
 │   └── 02_Feature_ML.ipynb
-├── 03_SRC/
-├── 04_Models/
+├── 03_SRC/                 # Scripts modulares (DRY)
+├── 04_Models/              # Pipelines guardados (.joblib)
 ├── 05_App/
-│   └── app_cibercrimen.py
-├── 06_Test/
-├── requirements.txt
+│   └── app_cibercrimen.py  # Código del Dashboard
+├── 06_Test/                # Tests unitarios
+├── requirements.txt        # Dependencias
 └── README.md
+
 ```
 ---
 
@@ -144,7 +142,7 @@ Proy_Cibercriminalidad/
 
 ---
 
-## **Sobre mí**
+## Sobre mí
 
 **¡Hola! Soy Raquel, Data Analyst – Data Science**
 
